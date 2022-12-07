@@ -5,7 +5,9 @@ import com.example.productbackend2.model.Products;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 @RestController
@@ -14,7 +16,7 @@ public class ProductController {
     private ProductDao dao;
     @CrossOrigin(origins = "*")
     @PostMapping(path = "/add",consumes = "application/json",produces = "application/json")
-    public String Productadd(@RequestBody Products p){
+    public Map<String,String> Productadd(@RequestBody Products p){
         System.out.println(p.getProductcode());
         System.out.println(p.getProductname().toString());
         System.out.println(p.getBrand().toString());
@@ -24,7 +26,9 @@ public class ProductController {
         System.out.println(p.getSellername().toString());
         System.out.println(p.getDistributor().toString());
         dao.save(p);
-        return "product added";
+        HashMap<String,String> map=new HashMap<>();
+        map.put("status","success");
+        return map;
     }
     @CrossOrigin(origins = "*")
     @GetMapping("/view")
